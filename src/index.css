@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   GaMMa VPN — design tokens
+
+   The brand mark is pure #000/#FFF and nothing else: sampled from the
+   Telegram avatar, 94% of its pixels are exactly those two values, and the
+   mark ships in both polarities (black-on-white in Telegram, white-on-black
+   on Instagram). So the page carries no accent colour at all. Hierarchy comes
+   from weight, scale and opacity, and the CTA earns attention by being the
+   only pure-white surface on the page.
+------------------------------------------------------------------- */
+
+@theme {
+  /* Surfaces */
+  --color-ink: #000000;
+  --color-ink-raised: #0b0b0b;
+  --color-ink-hi: #151515;
+
+  /* Three type tiers, all AA-or-better on pure black: 21:1 / 8.1:1 / 4.8:1 */
+  --color-paper: #ffffff;
+  --color-paper-dim: #a1a1a1;
+  --color-paper-faint: #7a7a7a;
+
+  /* Hairlines */
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+
+  --font-sans:
+    'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header must not cover anchor targets */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Long Russian compounds must never force a horizontal scroll */
+    overflow-wrap: break-word;
+  }
+
+  /* One consistent focus treatment across the whole page */
+  :focus-visible {
+    outline: 2px solid var(--color-paper);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  h1,
+  h2,
+  h3 {
+    /* Tight optical tracking reads as "designed" at display sizes */
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Film grain. The single most effective cue against a flat "AI page" look —
+   it sits above everything, costs one inlined SVG, and never intercepts input. */
+@utility grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}

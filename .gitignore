@@ -1,0 +1,37 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Local secrets — contains the 21st.dev MCP API key
+.claude/settings.local.json
+.env
+.env.local
+
+# Machine-specific dev-server config (absolute paths)
+.claude/launch.json
+
+# Vendored UI UX Pro Max skill data (~2.8 MB) — reinstall with `uipro init --ai claude`
+.claude/skills/
+
+.vercel
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
