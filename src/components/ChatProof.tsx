@@ -45,7 +45,7 @@ export function ChatProof() {
         className="rounded-xl rounded-tl-sm border border-line bg-ink-hi px-3.5 py-3 text-left"
       >
         <p className="text-[0.875rem] leading-relaxed text-paper">
-          Ключ готов. Вставьте его в приложение — подключение поднимется само.
+          Ключ готов. Вставьте его в приложение — подключение поднимется само.
         </p>
         <div className="mt-2.5 flex items-center gap-2 rounded-lg bg-ink px-2.5 py-2">
           <code className="min-w-0 flex-1 truncate font-mono text-[0.6875rem] text-paper-dim">

@@ -51,7 +51,7 @@ export function Trust() {
               variants={riseIn}
               className="mt-6 text-[0.8125rem] leading-relaxed text-paper-faint"
             >
-              {MONTHLY_USERS} пользователей в месяц — публичный счётчик Telegram
+              {MONTHLY_USERS} пользователей в месяц — публичный счётчик Telegram
               на{' '}
               <a
                 href={BOT_URL}

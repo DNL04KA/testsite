@@ -24,14 +24,15 @@ export function Footer() {
             </span>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:gap-7">
+          {/* Negative margin + padding: 44px tap targets, unchanged rhythm. */}
+          <div className="-my-2.5 flex flex-col sm:flex-row sm:gap-4">
             {LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-1.5 self-start text-[0.875rem] text-paper-dim transition-colors duration-200 hover:text-paper"
+                className="group inline-flex items-center gap-1.5 self-start py-3 text-[0.875rem] text-paper-dim transition-colors duration-200 hover:text-paper sm:px-1"
               >
                 {link.label}
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

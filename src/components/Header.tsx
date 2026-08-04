@@ -36,7 +36,8 @@ export function Header() {
           <div className="flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
             <a
               href="#top"
-              className="flex shrink-0 items-center gap-2.5"
+              // -my-2/py-2 grows the tap area to 44px without moving the mark
+              className="-my-2 flex shrink-0 items-center gap-2.5 py-2"
               aria-label="GaMMa VPN, в начало страницы"
             >
               <GammaMark className="h-7 w-auto text-paper" />
