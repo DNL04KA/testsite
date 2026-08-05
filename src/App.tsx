@@ -1,4 +1,7 @@
 import { MotionConfig } from 'motion/react'
+// `/react`, not `/next`: the Next entry imports `next/navigation.js`, which
+// does not exist in a Vite app and fails the build.
+import { Analytics } from '@vercel/analytics/react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Benefits } from './components/Benefits'
@@ -40,6 +43,8 @@ export default function App() {
       <StickyCta />
 
       <div aria-hidden="true" className="grain-overlay" />
+
+      <Analytics />
     </MotionConfig>
   )
 }
