@@ -47,11 +47,23 @@
       content="https://testsite-nu-six.vercel.app/og.png"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts are self-hosted: the audience sits behind restricted networks
+         where fonts.gstatic.com is not guaranteed to resolve, and a font host
+         that fails takes the page's typography with it. Preloading only the
+         two cuts the first screen actually renders. -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Onest:wght@300..800&family=Playfair+Display:ital,wght@1,400..600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/onest-300-800-cyrillic.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/playfair-display-400-600-i-cyrillic.woff2"
+      crossorigin
     />
   </head>
   <body>

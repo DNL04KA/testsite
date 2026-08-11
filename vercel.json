@@ -2,7 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
-      "comment": "Vite fingerprints these filenames, so the bytes at a given URL never change. Vercel's default (max-age=0, must-revalidate) forced a revalidation round-trip on every repeat view.",
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -12,7 +11,15 @@
       ]
     },
     {
-      "comment": "Not fingerprinted, so a finite TTL: a day at the edge, a week of stale-while-revalidate.",
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
       "source": "/(mark.svg|og.png)",
       "headers": [
         {
