@@ -15,7 +15,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="GaMMa VPN" />
-    <meta property="og:url" content="https://testsite-nu-six.vercel.app/" />
+    <meta property="og:url" content="https://gammavpn.dnl04ka.workers.dev/" />
     <meta property="og:title" content="GaMMa VPN — интернет, каким он был дома" />
     <meta
       property="og:description"
@@ -26,7 +26,7 @@
          here if a custom domain is attached. -->
     <meta
       property="og:image"
-      content="https://testsite-nu-six.vercel.app/og.png"
+      content="https://gammavpn.dnl04ka.workers.dev/og.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -44,7 +44,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://testsite-nu-six.vercel.app/og.png"
+      content="https://gammavpn.dnl04ka.workers.dev/og.png"
     />
 
     <!-- Fonts are self-hosted: the audience sits behind restricted networks
@@ -69,5 +69,15 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Cloudflare Web Analytics — automatic zone-linked setup doesn't apply
+         to a *.workers.dev host, so this is the manual beacon. No cookies,
+         no client-side state; token is a public site identifier, not a
+         secret. -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "3e256e8dc4e4410c962633c2cf76b9a1"}'
+    ></script>
   </body>
 </html>
