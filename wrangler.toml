@@ -1,0 +1,14 @@
+# Cloudflare Workers config for a static-only deploy (no server-side code —
+# just the Vite build served as static assets). `name` must match the
+# project already created in the dashboard ("gammavpn"), or wrangler will
+# try to spin up a second, separate Worker instead of deploying to it.
+name = "gammavpn"
+compatibility_date = "2026-08-04"
+
+[assets]
+directory = "./dist"
+# Any unmatched path falls back to index.html instead of Cloudflare's bare
+# 404 — this is a single-page marketing site with no router, and ad networks
+# occasionally mangle query strings or append stray path segments to the
+# landing URL. A visitor should still land on the page, not an error screen.
+not_found_handling = "single-page-application"
