@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { SPRING_SNAP } from '../lib/motion'
 import { CTA_LABEL } from '../lib/content'
-import { botUrl } from '../lib/bot'
+import { goUrl } from '../lib/bot'
 import { TelegramGlyph } from './icons'
 
 type Props = {
@@ -26,7 +26,7 @@ export function CtaButton({ size = 'lg', className = '', location }: Props) {
 
   return (
     <motion.a
-      href={botUrl(location)}
+      href={goUrl(location)}
       target="_blank"
       rel="noopener noreferrer"
       data-cta={location}

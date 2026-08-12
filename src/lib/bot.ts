@@ -30,10 +30,27 @@ function adSource(): string {
   return cachedSource
 }
 
-/** Bot link tagged with the place on the page the visitor clicked from. */
-export function botUrl(place: string): string {
+function startPayload(place: string): string {
   const spot = place.replace(UNSAFE, '')
   const src = adSource()
-  const payload = (src ? `${spot}-${src}` : spot).slice(0, MAX_PAYLOAD)
-  return `${BOT_URL}?start=${payload}`
+  return (src ? `${spot}-${src}` : spot).slice(0, MAX_PAYLOAD)
+}
+
+/** Bot link tagged with the place on the page the visitor clicked from. */
+export function botUrl(place: string): string {
+  return `${BOT_URL}?start=${startPayload(place)}`
+}
+
+/**
+ * Same destination, routed through our own `/go.html` first.
+ *
+ * Cloudflare Web Analytics has no click/event API on the free tier — only
+ * pageviews. Sending the click through a same-origin page first turns "did
+ * anyone click through to the bot" into an ordinary pageview count on that
+ * path, visible in the same dashboard, with zero dependency on the bot's own
+ * backend logging anything. `?start=` still reaches Telegram unchanged, so
+ * bot-side attribution (if the bot ever logs it) keeps working too.
+ */
+export function goUrl(place: string): string {
+  return `/go.html?start=${startPayload(place)}`
 }

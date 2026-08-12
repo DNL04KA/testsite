@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#000000" />
+    <title>Открываем Telegram…</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #000;
+        color: #a1a1a1;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+      }
+      a {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="msg">Открываем Telegram…</p>
+
+    <!-- Same beacon/token as index.html. This page exists specifically so a
+         click toward the bot registers as a pageview here — that's the whole
+         point, see src/lib/bot.ts (goUrl). -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "3e256e8dc4e4410c962633c2cf76b9a1"}'
+    ></script>
+
+    <script>
+      // Mirrors the sanitization in src/lib/bot.ts — this page can be hit
+      // directly with an arbitrary query string, not only via the app's own
+      // generated links, so it re-validates rather than trusting the input.
+      var params = new URLSearchParams(window.location.search)
+      var raw = params.get('start') || ''
+      var start = raw.replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64)
+      var target = 'https://t.me/gammaVPN_bot' + (start ? '?start=' + start : '')
+
+      document.getElementById('msg').innerHTML =
+        'Если ничего не произошло, <a href="' + target + '">откройте вручную</a>.'
+
+      // Short delay so the analytics beacon above has time to actually send
+      // before the page navigates away.
+      setTimeout(function () {
+        window.location.replace(target)
+      }, 300)
+    </script>
+  </body>
+</html>
