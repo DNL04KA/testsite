@@ -42,27 +42,39 @@ export function HeroVisual({ scrollRef }: { scrollRef: RefObject<HTMLElement | n
     >
       <motion.div
         style={reduced ? undefined : { y, opacity: fade }}
-        className="absolute left-1/2 top-[54%] aspect-square w-[190vw] max-w-[1180px] -translate-x-1/2 -translate-y-1/2 sm:w-[135vw]"
+        className="absolute left-1/2 top-[54%] aspect-square w-[150vw] max-w-[980px] -translate-x-1/2 -translate-y-1/2 sm:w-[135vw]"
       >
-        {/* Bloom — the only light source on the page. */}
+        {/* Bloom — the only light source on the page. Static, so this blur is
+            rasterized once rather than every frame. */}
         <div className="absolute inset-[18%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.13),rgba(255,255,255,0.04)_45%,transparent_68%)] blur-3xl" />
 
         {/* Sweep — a broad luminous arc drifting around the rings.
             Both ends of the conic gradient resolve to transparent so the
             0°/360° seam is invisible; a narrow bright wedge read as a torch
-            beam and cheapened the whole composition. */}
+            beam and cheapened the whole composition.
+
+            The mask lives on this static wrapper, not on the rotating layer:
+            `filter: blur()` + `mask-image` + a continuous `transform` on one
+            element is a combination mobile GPU compositors handle badly —
+            it was forcing a re-rasterize most frames instead of just
+            spinning a cached texture, which read as page-wide jank on
+            mid-tier phones, not just a slow-loading hero. Splitting the
+            static mask from the rotating, blurred content lets the browser
+            composite the rotation cheaply. */}
         {!reduced && (
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 44, ease: 'linear', repeat: Infinity }}
-            className="absolute inset-0 rounded-full [mask-image:radial-gradient(circle,transparent_16%,black_44%,black_58%,transparent_86%)]"
-            style={{
-              background:
-                'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.03) 55deg, rgba(255,255,255,0.09) 140deg, rgba(255,255,255,0.11) 190deg, rgba(255,255,255,0.04) 275deg, transparent 355deg)',
-              filter: 'blur(28px)',
-              willChange: 'transform',
-            }}
-          />
+          <div className="absolute inset-0 overflow-hidden rounded-full [mask-image:radial-gradient(circle,transparent_16%,black_44%,black_58%,transparent_86%)]">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 44, ease: 'linear', repeat: Infinity }}
+              className="absolute inset-0"
+              style={{
+                background:
+                  'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.03) 55deg, rgba(255,255,255,0.09) 140deg, rgba(255,255,255,0.11) 190deg, rgba(255,255,255,0.04) 275deg, transparent 355deg)',
+                filter: 'blur(14px)',
+                willChange: 'transform',
+              }}
+            />
+          </div>
         )}
 
         {/* Hairline rings. */}
