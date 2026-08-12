@@ -42,7 +42,7 @@ export function botUrl(place: string): string {
 }
 
 /**
- * Same destination, routed through our own `/go.html` first.
+ * Same destination, routed through our own `/go` first.
  *
  * Cloudflare Web Analytics has no click/event API on the free tier — only
  * pageviews. Sending the click through a same-origin page first turns "did
@@ -50,7 +50,13 @@ export function botUrl(place: string): string {
  * path, visible in the same dashboard, with zero dependency on the bot's own
  * backend logging anything. `?start=` still reaches Telegram unchanged, so
  * bot-side attribution (if the bot ever logs it) keeps working too.
+ *
+ * Extensionless on purpose: Cloudflare Workers Static Assets serves
+ * `public/go.html` at both `/go.html` and `/go`, but 307-redirects the
+ * `.html` request to the clean path first. The redirect preserves the query
+ * string so nothing would actually break, but it's one avoidable hop on
+ * every single click — linking straight to `/go` skips it.
  */
 export function goUrl(place: string): string {
-  return `/go.html?start=${startPayload(place)}`
+  return `/go?start=${startPayload(place)}`
 }
