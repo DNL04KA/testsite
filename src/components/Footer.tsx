@@ -1,14 +1,10 @@
-import {
-  BOT_HANDLE,
-  BOT_URL,
-  SUPPORT_HANDLE,
-  SUPPORT_URL,
-} from '../lib/content'
+import { BOT_HANDLE, SUPPORT_HANDLE, SUPPORT_URL } from '../lib/content'
+import { botUrl } from '../lib/bot'
 import { Container } from './Section'
 import { ArrowUpRight, GammaMark } from './icons'
 
 const LINKS = [
-  { href: BOT_URL, label: BOT_HANDLE },
+  { href: botUrl('footer'), label: BOT_HANDLE },
   { href: SUPPORT_URL, label: SUPPORT_HANDLE },
 ]
 

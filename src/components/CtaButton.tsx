@@ -1,12 +1,13 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { SPRING_SNAP } from '../lib/motion'
-import { BOT_URL, CTA_LABEL } from '../lib/content'
+import { CTA_LABEL } from '../lib/content'
+import { botUrl } from '../lib/bot'
 import { TelegramGlyph } from './icons'
 
 type Props = {
   size?: 'md' | 'lg'
   className?: string
-  /** Distinguishes the several CTA instances for analytics without changing copy. */
+  /** Where on the page this instance sits; travels to the bot as ?start=. */
   location: string
 }
 
@@ -25,7 +26,7 @@ export function CtaButton({ size = 'lg', className = '', location }: Props) {
 
   return (
     <motion.a
-      href={BOT_URL}
+      href={botUrl(location)}
       target="_blank"
       rel="noopener noreferrer"
       data-cta={location}
